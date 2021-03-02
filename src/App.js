@@ -11,7 +11,8 @@ class App extends Component {
     bad: 0,
   };
   onClickFeedback = (event) => {
-    const option = event.target.innerText.toLowerCase();
+    const option = event.target.name;
+
     this.setState((prevState) => {
       return { [option]: prevState[option] + 1 };
     });
@@ -39,19 +40,21 @@ class App extends Component {
     return (
       <div className="App">
         <Section title={"Please leave feedback"}>
-         
           <FeedbackOptions
             options={this.state}
             onLeaveFeedback={onClickFeedback}
-         /> {totalFeedback ?
-          <Statistics
-            good={good}
-            neutral={neutral}
-            bad={bad}
-            total={totalFeedback}
-            positivePercentage={percentage}
-          /> :
-          <Notification message="No feedback given" />}
+          />
+          {totalFeedback ? (
+            <Statistics
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={totalFeedback}
+              positivePercentage={percentage}
+            />
+          ) : (
+            <Notification message="No feedback given" />
+          )}
         </Section>
       </div>
     );
